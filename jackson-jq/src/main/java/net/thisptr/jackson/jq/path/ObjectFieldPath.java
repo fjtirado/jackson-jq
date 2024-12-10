@@ -66,9 +66,8 @@ public class ObjectFieldPath implements Path {
 				final Entry<String, JsonNode> entry = iter.next();
 				newobj.set(entry.getKey(), entry.getValue());
 			}
-			JsonNode newval = newobj.get(key);
-			newval = mutation.apply(newval != null ? newval : NullNode.getInstance());
-			if (newval != null && !newval.isNull())
+			final JsonNode newval = mutation.apply(newobj.get(key));
+			if (newval != null)
 				newobj.set(key, newval);
 			return newobj;
 		} else {
